@@ -5,10 +5,15 @@ const URL = require('url').URL;
 
 const server = http.createServer((req, res) => {
   // obtén la ruta del archivo solicitado
-  const filePath = path.join(__dirname, req.url);
+  let filePath = path.join(__dirname, req.url);
   //-- Construir un objeto URL
-  const myURL = new URL(req.url, "http://" + req.headers["host"]);
+  let myURL = new URL(req.url, "http://" + req.headers["host"]);
   // lee el archivo y devuelve su contenido como respuesta
+
+    if (filePath === path.join(__dirname, '/')) {
+    filePath = path.join(__dirname, '/index.html');
+    }
+
   fs.readFile(filePath, (err, data) => {
     if (err) {
       res.statusCode = 404;
@@ -16,7 +21,9 @@ const server = http.createServer((req, res) => {
       res.end('Error 404:Archivo no encontrado\n');
     } else {
       res.statusCode = 200;
-      res.setHeader('Content-Type', 'text/html');
+      res.writeHead(200, 'Content-Type' );
+        console.log("Recurso recibido: " );
+        console.log("200 OK");
       res.end(data);
     }
   });
