@@ -1,3 +1,6 @@
-body{
-    background-color: brown;
-}
+body {
+    background-image: url('fondotienda.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
