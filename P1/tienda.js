@@ -20,6 +20,15 @@ const server = http.createServer((req, res) => {
       res.setHeader('Content-Type', 'text/plain');
       res.end('Error 404:Archivo no encontrado\n');
     } else {
+      if (filePath.endsWith('.jpg') || filePath.endsWith('.jpeg')) {
+        contentType = 'image/jpeg';
+      } else if (filePath.endsWith('.png')) {
+        contentType = 'image/png';
+      } else if (filePath.endsWith('.gif')) {
+        contentType = 'image/gif';
+      } else {
+        contentType = 'text/html';
+      }
       res.statusCode = 200;
       res.writeHead(200, 'Content-Type' );
         console.log("Recurso recibido: " );
