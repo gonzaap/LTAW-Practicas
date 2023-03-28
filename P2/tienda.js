@@ -7,7 +7,16 @@ const filePath = path.join(__dirname, 'usuarios.json');
 
 
 const server = http.createServer((req, res) => {
-  if (req.method === 'POST' && req.url === '/usuarios') {
+  // obtén la ruta del archivo solicitado
+  let filePath = path.join(__dirname, req.url);
+  //-- Construir un objeto URL
+  let myURL = new URL(req.url, "http://" + req.headers["host"]);
+  // lee el archivo y devuelve su contenido como respuesta
+
+    if (filePath === path.join(__dirname, '/')) {
+    filePath = path.join(__dirname, '/index.html');
+    }
+if (req.method === 'POST' && req.url === '/usuarios') {
     let body = '';
     req.on('data', chunk => {
       body += chunk.toString();
@@ -24,17 +33,7 @@ const server = http.createServer((req, res) => {
         res.end(JSON.stringify({ message: 'Error al registrar usuario' }));
       }
     });
-  }
-  // obtén la ruta del archivo solicitado
-  let filePath = path.join(__dirname, req.url);
-  //-- Construir un objeto URL
-  let myURL = new URL(req.url, "http://" + req.headers["host"]);
-  // lee el archivo y devuelve su contenido como respuesta
-
-    if (filePath === path.join(__dirname, '/')) {
-    filePath = path.join(__dirname, '/index.html');
-    }
-
+  }else {
     fs.readFile(filePath, (err, data) => {
       if (err) {
         res.statusCode = 404;
@@ -60,6 +59,8 @@ const server = http.createServer((req, res) => {
         res.end(data);
       }
     });
+  }
+   
   });
 
 server.listen(9000, () => {
