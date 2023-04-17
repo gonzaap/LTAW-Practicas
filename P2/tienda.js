@@ -92,6 +92,11 @@ function registrarUsuario(usuario) {
   }
 }
 
+function enviarRespuestaError(res, statusCode, mensaje) {
+  res.writeHead(statusCode, { 'Content-Type': 'text/plain' });
+  res.end(mensaje);
+}
+
 function validarUsuario(usuario) {
   const filePath = path.join(__dirname, 'usuarios.json');
   try {
