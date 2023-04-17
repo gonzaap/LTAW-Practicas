@@ -13,16 +13,12 @@ registrarUsuario({ email: 'root', password: 'root' });
 
 
 const server = http.createServer((req, res) => {
-  // obtén la ruta del archivo solicitado
-  let filePath = path.join(__dirname, req.url);
-  //-- Construir un objeto URL
-  let myURL = new URL(req.url, "http://" + req.headers["host"]);
   if (req.method === 'GET') {
     let filePath = '.' + req.url;
     if (filePath === './') {
       filePath = './index.html';
     }
-  const extname = String(path.extname(filePath)).toLowerCase();
+    const extname = String(path.extname(filePath)).toLowerCase();
     let contentType = 'text/html';
     switch (extname) {
       case '.js':
@@ -44,7 +40,6 @@ const server = http.createServer((req, res) => {
         contentType = 'image/gif';
         break;
     }
-
     fs.readFile(filePath, (error, content) => {
       if (error) {
         enviarRespuestaError(res, 500, 'Error en el servidor');
@@ -53,14 +48,31 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, { 'Content-Type': contentType });
         res.end(content, 'utf-8');
       }
-    }); } else if (req.method === 'POST') {
+    });
+  } else if (req.method === 'POST') {
     let body = '';
     req.on('data', (chunk) => {
       body += chunk.toString();
     });
     req.on('end', () => {
-      const usuario = JSON.parse(body); });
-    }
+      const usuario = JSON.parse(body);
+      if (usuario.username && usuario.password) {
+        if (usuarios[usuario.username] === usuario.password) {
+          req.session = {
+            username: usuario.username,
+            loggedIn: true
+          };
+          redirigirPagina('/', res);
+        } else {
+          enviarRespuestaError(res, 401, 'Usuario o contraseña incorrectos');
+        }
+      } else {
+        enviarRespuestaError(res, 400, 'Faltan campos en el formulario');
+      }
+    });
+  } else {
+    enviarRespuestaError(res, 405, 'Método no permitido');
+  }
 });
 
 function registrarUsuario(usuario) {
@@ -97,7 +109,7 @@ function validarUsuario(usuario) {
 function redirigirPagina(url, res) {
   res.writeHead(303, { 'Location': url });
   res.end();
-  }
+}
   
 server.listen(9000, () => {
   console.log('Servidor corriendo en http://localhost:9000/');
