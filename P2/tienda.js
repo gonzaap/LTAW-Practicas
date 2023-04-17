@@ -17,56 +17,65 @@ const server = http.createServer((req, res) => {
   let filePath = path.join(__dirname, req.url);
   //-- Construir un objeto URL
   let myURL = new URL(req.url, "http://" + req.headers["host"]);
-  // lee el archivo y devuelve su contenido como respuesta
-  if (req.method === 'POST' && req.url === '/usuarios') {
-    let body = '';
-    req.on('data', chunk => {
-      body += chunk.toString();
-    });
-    req.on('end', () => {
-      try {
-        const usuario = JSON.parse(body);
-        if (validarUsuario(usuario)) {
-          // Guardar los detalles del usuario en la sesión
-          session[usuario.email] = usuario;
-          // Redirigir de vuelta al archivo index.html
-          redirigirPagina('/index.html', res);
-        } else {
-          enviarRespuestaError(res, 401, 'Usuario o contraseña incorrectos');
-        }
-      } catch (error) {
-        console.error(error);
-        enviarRespuestaError(res, 400, 'Error al registrar usuario');
-      }
-    });
-  }
-
-    if (filePath === path.join(__dirname, '/')) {
-    filePath = path.join(__dirname, '/index.html');
-    }
-
-    fs.readFile(filePath, (err, data) => {
-    if (err) {
-      res.statusCode = 404;
-      res.setHeader('Content-Type', 'text/plain');
-      res.end('Error 404:Archivo no encontrado\n');
-    } else {
-      if (filePath.endsWith('.jpg') || filePath.endsWith('.jpeg')) {
-        contentType = 'image/jpeg';
-      } else if (filePath.endsWith('.png')) {
+  const extname = String(path.extname(filePath)).toLowerCase();
+    let contentType = 'text/html';
+    switch (extname) {
+      case '.js':
+        contentType = 'text/javascript';
+        break;
+      case '.css':
+        contentType = 'text/css';
+        break;
+      case '.json':
+        contentType = 'application/json';
+        break;
+      case '.png':
         contentType = 'image/png';
-      } else if (filePath.endsWith('.gif')) {
+        break;
+      case '.jpg':
+        contentType = 'image/jpg';
+        break;
+      case '.gif':
         contentType = 'image/gif';
-      } else {
-        contentType = 'text/html';
-      }
-      res.statusCode = 200;
-      res.writeHead(200, 'Content-Type' );
-        console.log("Recurso recibido: " );
-        console.log("200 OK");
-      res.end(data);
+        break;
     }
-  });
+  // lee el archivo y devuelve su contenido como respuesta
+  //if (req.method === 'POST' && req.url === '/usuarios') {
+  //  let body = '';
+  //  req.on('data', chunk => {
+   //   body += chunk.toString();
+  //  });
+   // req.on('end', () => {
+      //try {
+       // const usuario = JSON.parse(body);
+        //if (validarUsuario(usuario)) {
+          // Guardar los detalles del usuario en la sesión
+        //  session[usuario.email] = usuario;
+          // Redirigir de vuelta al archivo index.html
+       //   redirigirPagina('/index.html', res);
+        //} else {
+       //   enviarRespuestaError(res, 401, 'Usuario o contraseña incorrectos');
+       // }
+     // } catch (error) {
+      //  console.error(error);
+      //  enviarRespuestaError(res, 400, 'Error al registrar usuario');
+     // }
+    //});
+  //}
+
+   // if (filePath === path.join(__dirname, '/')) {
+    //filePath = path.join(__dirname, '/index.html');
+   // }
+
+    fs.readFile(filePath, (error, content) => {
+      if (error) {
+        enviarRespuestaError(res, 500, 'Error en el servidor');
+        console.error(error);
+      } else {
+        res.writeHead(200, { 'Content-Type': contentType });
+        res.end(content, 'utf-8');
+      }
+    });
 });
 
 function registrarUsuario(usuario) {
