@@ -17,6 +17,11 @@ const server = http.createServer((req, res) => {
   let filePath = path.join(__dirname, req.url);
   //-- Construir un objeto URL
   let myURL = new URL(req.url, "http://" + req.headers["host"]);
+  if (req.method === 'GET') {
+    let filePath = '.' + req.url;
+    if (filePath === './') {
+      filePath = './index.html';
+    }
   const extname = String(path.extname(filePath)).toLowerCase();
     let contentType = 'text/html';
     switch (extname) {
@@ -39,33 +44,6 @@ const server = http.createServer((req, res) => {
         contentType = 'image/gif';
         break;
     }
-  // lee el archivo y devuelve su contenido como respuesta
-  //if (req.method === 'POST' && req.url === '/usuarios') {
-  //  let body = '';
-  //  req.on('data', chunk => {
-   //   body += chunk.toString();
-  //  });
-   // req.on('end', () => {
-      //try {
-       // const usuario = JSON.parse(body);
-        //if (validarUsuario(usuario)) {
-          // Guardar los detalles del usuario en la sesión
-        //  session[usuario.email] = usuario;
-          // Redirigir de vuelta al archivo index.html
-       //   redirigirPagina('/index.html', res);
-        //} else {
-       //   enviarRespuestaError(res, 401, 'Usuario o contraseña incorrectos');
-       // }
-     // } catch (error) {
-      //  console.error(error);
-      //  enviarRespuestaError(res, 400, 'Error al registrar usuario');
-     // }
-    //});
-  //}
-
-   // if (filePath === path.join(__dirname, '/')) {
-    //filePath = path.join(__dirname, '/index.html');
-   // }
 
     fs.readFile(filePath, (error, content) => {
       if (error) {
@@ -75,7 +53,14 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, { 'Content-Type': contentType });
         res.end(content, 'utf-8');
       }
+    }); } else if (req.method === 'POST') {
+    let body = '';
+    req.on('data', (chunk) => {
+      body += chunk.toString();
     });
+    req.on('end', () => {
+      const usuario = JSON.parse(body); });
+    }
 });
 
 function registrarUsuario(usuario) {
