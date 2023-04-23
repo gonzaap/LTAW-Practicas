@@ -1,1 +1,14 @@
-{"usuarios":[{"nombre":"Julian","usuario":"usuarioprueba","contraseña":"usuarioprueba"},{"email":"usuarioprueba","password":"usuarioprueba"},{"email":"root","password":"root"}]}
+{
+    "usuarios":
+    [{
+        "usuario" : "prueba",
+        "nombre": "Goma",
+        "contraseña": "prueba"
+
+    },
+    {   "usuario" : "root",
+        "nombre": "Root",
+        "contraseña": "0000"
+
+    }]
+}
