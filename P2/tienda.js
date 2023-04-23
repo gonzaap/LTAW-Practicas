@@ -65,6 +65,12 @@ const server = http.createServer((req, res) => {
           enviarRespuestaError(res, 500, 'Error en el servidor');
           console.error(error);
         } else {
+          // Verificar si el usuario tiene una sesión iniciada
+          const sesionUsuario = req.session && req.session.loggedIn && req.session.usuario;
+          // Reemplazar la cadena "<usuario>" en el contenido con el nombre de usuario si hay una sesión iniciada
+          if (sesionUsuario) {
+            content = content.toString().replace('<usuario>', req.session.usuario);
+          }
           res.writeHead(200, { 'Content-Type': contentType });
           res.end(content, 'utf-8');
         }
@@ -84,6 +90,7 @@ const server = http.createServer((req, res) => {
             usuario: datosUsuario.usuario,
             loggedIn: true
           };
+
           redirigirPagina('/index.html', res);
         } else {
           enviarRespuestaError(res, 401, 'Usuario o contraseña incorrectos');
