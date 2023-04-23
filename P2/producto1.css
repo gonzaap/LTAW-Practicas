@@ -22,6 +22,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    background-size: 100% 2000px;
   }
 
   h1{
@@ -91,4 +92,12 @@ fieldset{
 #enlace_index {
   float: right;
   margin: 0px 10px 0 0;
+}
+
+#titulo {
+    width: 400px;
+}
+
+#precio {
+    width: 400px;
 }
