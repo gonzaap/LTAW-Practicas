@@ -1,1 +1,13 @@
-{"usuarios":[{"usuario":"prueba","nombre":"Goma","contraseña":"prueba"},{"usuario":"root","nombre":"Root","contraseña":"0000"},{"email":"usuarioprueba","password":"usuarioprueba"},{"email":"root","password":"root"},{"email":"usuarioprueba","password":"usuarioprueba"},{"email":"root","password":"root"},{"email":"usuarioprueba","password":"usuarioprueba"},{"email":"root","password":"root"},{"email":"usuarioprueba","password":"usuarioprueba"},{"email":"root","password":"root"},{"email":"usuarioprueba","password":"usuarioprueba"},{"email":"root","password":"root"},{"email":"usuarioprueba","password":"usuarioprueba"},{"email":"root","password":"root"}]}
+{"usuarios": [
+    {
+      "usuario": "prueba",
+      "nombrereal": "Goma",
+      "contrasena": "prueba"
+    },
+    {
+      "usuario": "root",
+      "nombrereal": "Root",
+      "contrasena": "root"
+    }
+  ]
+}
