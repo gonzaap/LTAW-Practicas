@@ -70,7 +70,7 @@ li{
   font-size: 25px;
   color: aliceblue;
   /*Cambiando imagen de los puntos de la lista*/
-  list-style-image: url('Lista.png');
+  /*list-style-image: url('Lista.png');*/
 }
 
 a{
