@@ -7,9 +7,9 @@ const URL = require('url').URL;
 const session = {};
 
 // Leer archivo de usuarios
-const filePath = path.join(__dirname, 'usuarios.json');
-let usuariosJSON = fs.readFileSync(filePath);
-let usuarios = JSON.parse(usuariosJSON).usuarios;
+const filePath = path.join(__dirname, 'tienda.json');
+let tiendaJSON = fs.readFileSync(filePath);
+let usuarios = JSON.parse(tiendaJSON).usuarios;
 
 const server = http.createServer((req, res) => {
   if (req.method === 'GET') {

@@ -1,0 +1,55 @@
+body {
+    background-image: url('fondointerfaces.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 3000px;
+  }
+
+  h1{
+    font-size: 135px;
+    color: aliceblue;
+    border-bottom: #ebe9e5 2px outset;
+    padding: 10px;
+    
+}
+h1{
+  font-size: 110px;
+  color: aliceblue;
+  border-bottom: #ebe9e5 2px outset;
+  padding: 10px;
+  
+}
+/*Estableciendo márgenes*/
+.imagen1{
+
+  margin-right: 7%;
+}
+/*Estableciendo tamaño deseado de la tabla*/
+.tabla{
+  
+  width: 500px;
+}
+
+h2{
+  font-size: 60px;
+  color: aliceblue;
+}
+
+p1{
+  font-size: 25px;
+  color: aliceblue;
+}
+
+fieldset{
+  border-style: #ebe9e5 10px outset;
+}
+
+#enlace_usuarios {
+  float: right;
+  margin: 0px 10px 0 0;
+}
+#enlace_index {
+  float: right;
+  margin: 0px 10px 0 0;
+}

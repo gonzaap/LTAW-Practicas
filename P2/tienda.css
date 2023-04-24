@@ -87,6 +87,12 @@ fieldset{
   float: right;
   margin: 0px 10px 0 0;
 }
+
+#enlace_carrito {
+  float: right;
+  margin: 10px 10px 0 0;
+}
+
 #enlace_index {
   float: right;
   margin: 0px 10px 0 0;

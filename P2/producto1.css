@@ -84,6 +84,11 @@ fieldset{
   background: black;
 }
 
+button{
+  background-color: black;
+}
+
+
 #enlace_usuarios {
   float: right;
   margin: 0px 10px 0 0;

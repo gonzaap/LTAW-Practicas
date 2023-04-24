@@ -3,17 +3,25 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Formulario de inicio de sesión</title>
+	<link rel="Stylesheet" type="text/css" href="interfaces.css"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
 </head>
 <body>
+	<a href="index.html"><img src="home.png" alt="Home" id="enlace_index" width="100px"></a> 
 	<h1>Inicio de sesión</h1>
-	<form action="index.html" method="get">
-		<label for="usuario">Usuario:</label>
-		<input type="text" id="usuario" name="usuario"><br><br>
-
-		<label for="contraseña">Contraseña:</label>
-		<input type="password" id="contraseña" name="contraseña"><br><br>
-
-		<input type="submit" value="Iniciar sesión">
-	</form>
+	<fieldset>
+		<h2>
+			<form action="index.html" method="get">
+				<label for="usuario">Usuario:</label>
+				<input type="text" id="usuario" name="usuario"><br><br>
+		
+				<label for="contraseña">Contraseña:</label>
+				<input type="password" id="contraseña" name="contraseña"><br><br>
+		
+				<input type="submit" value="Iniciar sesión">
+			</form>
+		</h2>
+</fieldset>
 </body>
 </html>
