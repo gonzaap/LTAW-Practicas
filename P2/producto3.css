@@ -19,7 +19,7 @@
 
 body {
     background-color: black; /* Establece el color de fondo */
-    background-image: url('fondoproducto3.png'); /* Establece la imagen de fondo */
+    background-image: url('fondoproducto3.jpg'); /* Establece la imagen de fondo */
     background-repeat: no-repeat; /* Evita que la imagen se repita */
     background-position: right top; /* Posiciona la imagen en la esquina superior derecha */
     background-size: 100% 1600px;
@@ -100,4 +100,8 @@ fieldset{
 
 #precio {
     width: 400px;
+}
+
+#text {
+  font-size: 50px;
 }

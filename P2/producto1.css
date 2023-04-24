@@ -21,8 +21,7 @@ body {
     background-image: url('fondoproducto1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 100% 2000px;
+    background-size: 100% 1600px;
   }
 
   h1{
@@ -100,4 +99,8 @@ fieldset{
 
 #precio {
     width: 400px;
+}
+
+#text {
+  font-size: 50px;
 }
