@@ -18,7 +18,7 @@ const io = socket(server);
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
 //-- Definir el punto de entrada principal de mi aplicación web
 app.get('/', (req, res) => {
-  res.send('Bienvenido a mi aplicación Web!!!' + '<p><a href="/index.html">Comencemos</a></p>');
+  res.send('Bienvenido a mi aplicación Web!!!' + '<p><a href="/index.html">Comencemos!</a></p>');
 });
 
 //-- Esto es necesario para que el servidor le envíe al cliente la
@@ -34,6 +34,13 @@ io.on('connect', (socket) => {
   
   console.log('** NUEVA CONEXIÓN **'.yellow);
 
+// Envío mensaje de bienvenida
+socket.emit('message', 'Bienvenido soldado!');
+
+// Notificando al resto de usuarios
+socket.broadcast.emit('message', 'Los refuerzos llegan a nuestras filas');
+
+
   //-- Evento de desconexión
   socket.on('disconnect', function(){
     console.log('** CONEXIÓN TERMINADA **'.yellow);
@@ -43,8 +50,36 @@ io.on('connect', (socket) => {
   socket.on("message", (msg)=> {
     console.log("Mensaje Recibido!: " + msg.blue);
 
-    //-- Reenviarlo a todos los clientes conectados
-    io.send(msg);
+        //-- Si el mensaje empieza por '/', interpretarlo como comando
+        if (msg.charAt(0) === '/') {
+            const command = msg.substr(1);
+            console.log(`Comando recibido: ${command}`);
+      
+            //-- Procesar el comando
+            let response;
+            switch (command) {
+              case 'help':
+                response = 'Comandos soportados: /help, /list, /hello, /date';
+                break;
+              case 'list':
+                response = `Hay ${io.engine.clientsCount} compañeros en nuestras filas`;
+                break;
+              case 'hello':
+                response = 'Hola compañero! ¿Preparado?';
+                break;
+              case 'date':
+                response = `¿Qué clase de pregunta es esa? Hoy es: ${new Date().toLocaleDateString()}`;
+                break;
+              default:
+                response = 'No entiendo qué quieres decir con ese comando';
+            }
+      
+            //-- Enviar la respuesta al cliente que ha enviado el comando
+            socket.emit('message', response);
+          } else{
+            //-- Reenviarlo a todos los clientes conectados
+            io.send(msg);
+          }
   });
 
 });

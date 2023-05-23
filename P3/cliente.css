@@ -1,0 +1,14 @@
+body {
+    background-image: url('fondochat.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: 100% 1090px;
+  }
+
+h2 {
+    color: aliceblue;
+}
+
+h3 {
+    color: aliceblue;
+}
